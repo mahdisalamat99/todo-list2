@@ -48,9 +48,9 @@ function showTasks() {
     deleteAllBtn.classList.remove("active");
   }
   let newLiTag = "";
-  listArr.forEach((element, index,edit) => {
+  listArr.forEach((element, index) => {
     newLiTag += `<li>${element} <span onclick="deleteTask(${index})" ><i class="fas fa-trash" ></i></span>
-    <span class="edit" onclick="editTask(${edit})" ><i class="fas fa-pen"></i></span>
+    <span class="edit" onclick="editTask(${index})" ><i class="fas fa-pen"></i></span>
 
         </li>`;
   });
@@ -79,6 +79,8 @@ deleteAllBtn.onclick = () => {
 
 
 // edit task function
-function editTask(edit){
+function editTask(index){
+    inputBox.value=listArr[index];
+    
     console.log("yep2")
 }
