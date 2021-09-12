@@ -16,20 +16,41 @@ inputBox.onkeyup = () => {
 showTasks(); //calling showTask function
 
 // if user click on the add button
-addBtn.onclick = () => {
-  let userData = inputBox.value; //getting user entered value
-  let getLocalStorage = localStorage.getItem("New Todo"); //getting localStorage
-  if (getLocalStorage == null) {
-    //if local storage is null
-    listArr = []; //creating blank array
+
+addBtn.setAttribute("onclick", `addFunc()`);
+
+function addFunc(index) {
+  console.log(index)
+  if (index === undefined) {
+    console.log("nnn")
+    let userData = inputBox.value; //getting user entered value
+    let getLocalStorage = localStorage.getItem("New Todo"); //getting localStorage
+    if (getLocalStorage == null) {
+      //if local storage is null
+      listArr = []; //creating blank array
+    } else {
+      listArr = JSON.parse(getLocalStorage); //transforming json string into a js object
+    }
+    listArr.push(userData); //pushing or adding user data
+    localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a js string
+    showTasks(); //calling showTask function
+    addBtn.classList.remove("active"); //unactive the add button
   } else {
-    listArr = JSON.parse(getLocalStorage); //transforming json string into a js object
+    
+    addBtn.setAttribute('onclick',`addFunc()`);
+    let getLocalStorage = localStorage.getItem("New Todo");
+    listArr = JSON.parse(getLocalStorage);
+    console.log(index)
+    // listArr[index].value="";
+    listArr[index]= inputBox.value;
+    localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming json string into a js object
+    showTasks();
+
+    
+    
+
   }
-  listArr.push(userData); //pushing or adding user data
-  localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a js string
-  showTasks(); //calling showTask function
-  addBtn.classList.remove("active"); //unactive the add button
-};
+}
 
 // function to add li tags inside ul tag
 function showTasks() {
@@ -66,7 +87,7 @@ function deleteTask(index) {
   //after remove li again update the local storage
   localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming json string into a js object
   showTasks();
-  console.log("yep1")
+  console.log("yep1");
 }
 
 // delete all tasks function
@@ -77,10 +98,11 @@ deleteAllBtn.onclick = () => {
   showTasks();
 };
 
-
 // edit task function
-function editTask(index){
-    inputBox.value=listArr[index];
-    
-    console.log("yep2")
+function editTask(index) {
+  inputBox.value = listArr[index];
+  addBtn.setAttribute('onclick',`addFunc(${index})`);
+  console.log("yep2");
+  console.log("index :" + index);
+  console.log(listArr)
 }
