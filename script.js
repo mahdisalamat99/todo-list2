@@ -70,7 +70,7 @@ function showTasks() {
   }
   let newLiTag = "";
   listArr.forEach((element, index) => {
-    newLiTag += `<li>${element} <span onclick="deleteTask(${index})" ><i class="fas fa-trash" ></i></span>
+    newLiTag += `<li class="ui-state-default">${element} <span onclick="deleteTask(${index})" ><i class="fas fa-trash" ></i></span>
     <span class="edit" onclick="editTask(${index})" ><i class="fas fa-pen"></i></span>
 
         </li>`;
@@ -106,3 +106,5 @@ function editTask(index) {
   console.log("index :" + index);
   console.log(listArr)
 }
+
+
