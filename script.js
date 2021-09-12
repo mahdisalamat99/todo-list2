@@ -4,6 +4,12 @@ const addBtn = document.querySelector(".inputField button");
 const todoList = document.querySelector(".todoList");
 const deleteAllBtn = document.querySelector(".footer Button");
 
+inputBox.addEventListener("keyup",(e) =>{
+  if (e.which === 13){
+    addBtn.click()
+  }
+})
+
 inputBox.onkeyup = () => {
   let userData = inputBox.value; // getting user entered value
   if (userData.trim() != 0) {
