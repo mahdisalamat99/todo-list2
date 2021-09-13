@@ -74,6 +74,9 @@ body{
     overflow: hidden;
 
 }
+.todoList li:hover {
+    cursor: pointer;
+}
 .todoList li span{
     position: absolute;
     height: 100%;

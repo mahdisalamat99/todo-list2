@@ -37,7 +37,8 @@ function addFunc(index) {
     } else {
       listArr = JSON.parse(getLocalStorage); //transforming json string into a js object
     }
-    listArr.push(userData); //pushing or adding user data
+    listArr.push({title:userData , sort:listArr.length, id:listArr.length}); //pushing or adding user data
+
     localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming js object into a js string
     showTasks(); //calling showTask function
     addBtn.classList.remove("active"); //unactive the add button
@@ -48,7 +49,7 @@ function addFunc(index) {
     listArr = JSON.parse(getLocalStorage);
     console.log(index)
     // listArr[index].value="";
-    listArr[index]= inputBox.value;
+    listArr[index].title= inputBox.value;
     localStorage.setItem("New Todo", JSON.stringify(listArr)); //transforming json string into a js object
     showTasks();
 
@@ -75,8 +76,8 @@ function showTasks() {
     deleteAllBtn.classList.remove("active");
   }
   let newLiTag = "";
-  listArr.forEach((element, index) => {
-    newLiTag += `<li class="ui-state-default">${element} <span onclick="deleteTask(${index})" ><i class="fas fa-trash" ></i></span>
+  listArr.sort((a,b) =>a.sort -b.sort).forEach((element, index) => {
+    newLiTag += `<li class="ui-state-default" data-id="${element.id}">${element.title} <span onclick="deleteTask(${index})" ><i class="fas fa-trash" ></i></span>
     <span class="edit" onclick="editTask(${index})" ><i class="fas fa-pen"></i></span>
 
         </li>`;
@@ -106,7 +107,9 @@ deleteAllBtn.onclick = () => {
 
 // edit task function
 function editTask(index) {
-  inputBox.value = listArr[index];
+  inputBox.value = listArr[index].title;
+  // inputBox.value = listArr[index].sort;
+
   addBtn.setAttribute('onclick',`addFunc(${index})`);
   console.log("yep2");
   console.log("index :" + index);

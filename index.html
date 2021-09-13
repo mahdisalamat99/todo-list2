@@ -31,8 +31,24 @@
     <script src="script.js"></script>
     <script>
         $( function() {
-          $( "#sortable" ).sortable();
+        //   $( "#sortable" ).sortable();
           $( "#sortable" ).disableSelection();
+
+          $( "#sortable" ).sortable({
+            stop: function( event, ui ) {
+                [...document.querySelectorAll(".todoList li")].forEach((row,index) =>{
+                    for (let j=0 ; j<listArr.length ; j++) {
+                        console.log(listArr[j].id,row.dataset.id)
+                        if (listArr[j].id == row.dataset.id){
+                            listArr[j].sort = index;
+                        } 
+                    }
+                    
+                })
+                console.log(listArr)
+                localStorage.setItem("New Todo", JSON.stringify(listArr));
+            }
+});
         } );
         </script>
 </body>
